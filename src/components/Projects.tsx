@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github, Code2, Sparkles, Menu, X } from "lucide-react";
 import { useState } from "react";
+import Navigation from "./Navigation";
 
 const projects = [
   {
