@@ -58,7 +58,7 @@ const Pricing: React.FC = () => {
     {
       title: 'Standard',
       description: 'Ideal for growing businesses with content needs',
-      usd: '$12000 – $45000',
+      usd: '$8000 – $25000',
       features: [
         'Up to 10 pages',
         'Basic CMS integration',
@@ -72,7 +72,7 @@ const Pricing: React.FC = () => {
     {
       title: 'E-Commerce',
       description: 'Complete online store solution',
-      usd: '$10080 – $60000',
+      usd: '$25000 – $60000',
       features: [
         'Product catalog',
         'Shopping cart',
@@ -86,7 +86,7 @@ const Pricing: React.FC = () => {
     {
       title: 'Web App',
       description: 'Custom solutions for complex requirements',
-      usd: '$15000 – $120000',
+      usd: '$60000 – $120000',
       features: [
         'Custom backend development',
         'Database architecture',
