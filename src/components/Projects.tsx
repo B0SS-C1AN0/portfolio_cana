@@ -46,42 +46,10 @@ const Projects = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <a href="#" className="text-2xl font-bold gradient-text">PORTFOLIO</a>
-          
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8">
-            <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Home</a>
-            <a href="#projects" className="text-sm text-primary font-medium">Projects</a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">About</a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Contact</a>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button 
-            className="md:hidden text-foreground"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-lg">
-            <div className="flex flex-col px-4 py-4 gap-4">
-              <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Home</a>
-              <a href="#projects" className="text-sm text-primary font-medium">Projects</a>
-              <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">About</a>
-              <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Contact</a>
-            </div>
-          </div>
-        )}
-      </nav>
-
+      <Navigation />
+      
       <section id="projects" className="py-20 px-4 relative mt-16">
         {/* Ambient Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
