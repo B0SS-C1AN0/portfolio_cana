@@ -17,19 +17,13 @@ import {
 } from 'lucide-react';
 
 import Navigation from './Navigation';
-
 import { useNavigate } from 'react-router-dom';
 
 const Pricing: React.FC = () => {
-  const [currency, setCurrency] = useState<'naira' | 'usd'>('naira');
   const [visibleIndexes, setVisibleIndexes] = useState<number[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const savedCurrency = localStorage.getItem('currency');
-    if (savedCurrency === 'naira' || savedCurrency === 'usd')
-      setCurrency(savedCurrency);
-
     const onScroll = () => {
       const cards = document.querySelectorAll<HTMLElement>('.fade-up-card');
       const windowHeight = window.innerHeight;
@@ -46,28 +40,11 @@ const Pricing: React.FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // ✅ FIXED CONVERTER FUNCTION
-  const convertToUSD = (nairaPrice: string) => {
-    // Remove Naira symbol and spaces
-    const cleaned = nairaPrice.replace(/₦|\s/g, '');
-    // Split on EN DASH or hyphen
-    const parts = cleaned.split(/–|-/);
-    // Parse and clean commas
-    const numbers = parts.map(part => parseInt(part.replace(/,/g, ''), 10));
-    // Convert
-    const usdNumbers = numbers.map(num => `$${Math.round(num * 0.0007)}`);
-    // Return formatted value
-    return usdNumbers.length === 1
-      ? usdNumbers[0]
-      : `${usdNumbers[0]} – ${usdNumbers[1]}`;
-  };
-
   const packages = [
     {
       title: 'Starter',
       description: 'Perfect for small businesses and personal brands',
-      price: '₦100,000 – ₦200,000',
-      usd: '$70 – $140',
+      usd: '$3000 – $8000',
       features: [
         'Up to 5 pages',
         'Responsive design',
@@ -81,8 +58,7 @@ const Pricing: React.FC = () => {
     {
       title: 'Standard',
       description: 'Ideal for growing businesses with content needs',
-      price: '₦200,000 – ₦400,000',
-      usd: '$140 – $280',
+      usd: '$12000 – $45000',
       features: [
         'Up to 10 pages',
         'Basic CMS integration',
@@ -96,8 +72,7 @@ const Pricing: React.FC = () => {
     {
       title: 'E-Commerce',
       description: 'Complete online store solution',
-      price: '₦350,000 – ₦800,000',
-      usd: '$280 – $560',
+      usd: '$10080 – $60000',
       features: [
         'Product catalog',
         'Shopping cart',
@@ -111,8 +86,7 @@ const Pricing: React.FC = () => {
     {
       title: 'Web App',
       description: 'Custom solutions for complex requirements',
-      price: '₦600,000 – ₦1,500,000',
-      usd: '$560 – $1,040',
+      usd: '$15000 – $120000',
       features: [
         'Custom backend development',
         'Database architecture',
@@ -125,45 +99,42 @@ const Pricing: React.FC = () => {
     }
   ];
 
-  const addOns = [
-    {
-      category: 'Setup & Infrastructure',
-      items: [
-        { name: 'Domain & Hosting Setup', price: '₦20,000 – ₦50,000' },
-        { name: 'SSL Certificate Installation', price: '₦10,000' }
-      ]
-    },
-    {
-      category: 'Design & Branding',
-      items: [
-        { name: 'UI/UX Design (Figma)', price: '₦50,000 – ₦150,000' },
-        {
-          name: 'Branding Package (Logo + Identity)',
-          price: '₦40,000 – ₦120,000'
-        }
-      ]
-    },
-    {
-      category: 'Content & SEO',
-      items: [
-        { name: 'SEO Optimization', price: '₦30,000 – ₦100,000' },
-        { name: 'Content Writing (per page)', price: '₦10,000 – ₦30,000' }
-      ]
-    },
-    {
-      category: 'Performance & Features',
-      items: [
-        { name: 'Speed Optimization', price: '₦20,000 – ₦80,000' },
-        { name: 'Chatbot Integration', price: '₦50,000 – ₦120,000' }
-      ]
-    },
-    {
-      category: 'Ongoing Support',
-      items: [
-        { name: 'Monthly Maintenance', price: '₦30,000 – ₦100,000' }
-      ]
-    }
-  ];
+ const addOns = [
+  {
+    category: 'Setup & Infrastructure',
+    items: [
+      { name: 'Domain & Hosting Setup', price: '$30 – $150' },
+      { name: 'SSL Certificate Installation', price: '$20 – $120' }
+    ]
+  },
+  {
+    category: 'Design & Branding',
+    items: [
+      { name: 'UI/UX Design (Figma)', price: '$300 – $1,200' },
+      { name: 'Branding Package (Logo + Identity)', price: '$250 – $1,000' }
+    ]
+  },
+  {
+    category: 'Content & SEO',
+    items: [
+      { name: 'SEO Optimization', price: '$150 – $800' },
+      { name: 'Content Writing (per page)', price: '$50 – $200' }
+    ]
+  },
+  {
+    category: 'Performance & Features',
+    items: [
+      { name: 'Speed Optimization', price: '$100 – $500' },
+      { name: 'Chatbot Integration', price: '$300 – $1,000' }
+    ]
+  },
+  {
+    category: 'Ongoing Support',
+    items: [
+      { name: 'Monthly Maintenance', price: '$50 – $250 / month' }
+    ]
+  }
+];
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -185,38 +156,6 @@ const Pricing: React.FC = () => {
             Transparent, easy-to-understand pricing. Choose the right package
             for your business and start building your online presence today.
           </p>
-
-          {/* Currency Toggle */}
-          <div className="inline-flex items-center border border-border rounded-full overflow-hidden">
-            <Button
-              variant={currency === 'naira' ? 'default' : 'ghost'}
-              className={`rounded-none px-6 py-2 font-semibold transition-all ${
-                currency === 'naira'
-                  ? 'bg-gradient-to-r from-primary to-secondary text-white'
-                  : 'text-foreground hover:text-primary'
-              }`}
-              onClick={() => {
-                setCurrency('naira');
-                localStorage.setItem('currency', 'naira');
-              }}
-            >
-              ₦ Naira
-            </Button>
-            <Button
-              variant={currency === 'usd' ? 'default' : 'ghost'}
-              className={`rounded-none px-6 py-2 font-semibold transition-all ${
-                currency === 'usd'
-                  ? 'bg-gradient-to-r from-primary to-secondary text-white'
-                  : 'text-foreground hover:text-primary'
-              }`}
-              onClick={() => {
-                setCurrency('usd');
-                localStorage.setItem('currency', 'usd');
-              }}
-            >
-              $ USD
-            </Button>
-          </div>
         </div>
       </section>
 
@@ -247,12 +186,11 @@ const Pricing: React.FC = () => {
                 </CardDescription>
                 <div className="pt-4">
                   <div className="text-3xl font-bold">
-                    <span key={currency} className="fade-price inline-block">
-                      {currency === 'naira' ? pkg.price : pkg.usd}
-                    </span>
+                    <span className="fade-price inline-block">{pkg.usd}</span>
                   </div>
                 </div>
               </CardHeader>
+
               <CardContent>
                 <ul className="space-y-3 mb-6">
                   {pkg.features.map((feature, i) => (
@@ -302,7 +240,6 @@ const Pricing: React.FC = () => {
                 }`}
                 style={{ transitionDelay: `${index * 120}ms` }}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <CardHeader className="relative z-10">
                   <CardTitle className="flex items-center gap-3 text-lg font-semibold">
                     <div className="p-2 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl text-primary">
@@ -315,6 +252,7 @@ const Pricing: React.FC = () => {
                     {category.category}
                   </CardTitle>
                 </CardHeader>
+
                 <CardContent className="relative z-10">
                   <ul className="space-y-4">
                     {category.items.map((item, i) => (
@@ -323,14 +261,7 @@ const Pricing: React.FC = () => {
                         className="flex justify-between items-center border-b border-border pb-3 last:border-0 text-sm hover:text-primary transition-colors duration-200"
                       >
                         <span className="font-medium">{item.name}</span>
-                        <span
-                          className="text-primary font-semibold fade-price inline-block"
-                          key={currency}
-                        >
-                          {currency === 'naira'
-                            ? item.price
-                            : convertToUSD(item.price)}
-                        </span>
+                        <span className="text-primary font-semibold">{item.usd}</span>
                       </li>
                     ))}
                   </ul>
